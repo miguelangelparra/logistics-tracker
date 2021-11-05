@@ -1,23 +1,28 @@
 pragma solidity ^0.5.0;
 
 contract ProductsContract {
+    address owner;
+
     struct Product {
+        uint256 id;
         address factory;
-        address deliver;
+        address payable deliver;
         address client;
+        uint price;
     }
 
     mapping(uint256 => Product) products;
     uint256[] public ProductsList;
 
-    constructor() public {}
+    constructor() public {
+        owner = msg.sender;
+    }
 
-    function setFactory(uint256 _id) public {
-        /////////////// VALIDAR SI EL ID EXISTE
-      //  if (!haveId(_id))
-        ///////////////
-
+    function setFactory(uint256 _id, uint _price) public {
+        require(!idExist(_id), "this Id exists yet!");
+        products[_id].id = _id;
         products[_id].factory = msg.sender;
+        products[_id].price = _price;
         ProductsList.push(_id) - 1;
     }
 
@@ -25,8 +30,10 @@ contract ProductsContract {
         products[_id].deliver = msg.sender;
     }
 
-    function setClient(uint256 _id) public {
+    function setClient(uint256 _id) public payable {
+        require(msg.value == products[_id].price, "Algo Paso en el requerimiento");
         products[_id].client = msg.sender;
+        products[_id].deliver.transfer(products[_id].price / 5);
     }
 
     function getProducts() public view returns (uint256[] memory) {
@@ -39,13 +46,15 @@ contract ProductsContract {
         returns (
             address,
             address,
-            address
+            address,
+            uint
         )
     {
         return (
             products[_id].factory,
             products[_id].deliver,
-            products[_id].client
+            products[_id].client,
+            products[_id].price
         );
     }
 
@@ -53,8 +62,21 @@ contract ProductsContract {
         return ProductsList.length;
     }
 
-   // function haveId(address id) returns (bool) {
-     //   if (products[id].isValue) throw; // duplicate key
-       // return true;
-   // }
+    function idExist(uint256 _id) private returns (bool) {
+        if (products[_id].id == 0) {
+            return false;
+        }
+        return true;
+    }
+
+    //
+    function withdraw() public {
+        require(msg.sender == owner);
+        msg.sender.transfer(address(this).balance);
+    }
+
+    function getBalance() public view returns (uint256) {
+        require(msg.sender == owner);
+        return address(this).balance;
+    }
 }
