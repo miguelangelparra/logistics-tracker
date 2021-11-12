@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
-import Link from 'next/link'
+import { useRouter } from 'next/router'
+import Image from 'next/image'
+import deliveryImage from '../public/delivery.png'
+import { Col, Container, Row, Button } from 'react-bootstrap';
 
-import Lectura from '../components/ManagerFactory';
 
 function Home({ drizzle, drizzleState }) {
 
@@ -25,32 +27,34 @@ function Home({ drizzle, drizzleState }) {
   }, [])
   console.log(drizzle.contracts)
 
+  const router = useRouter()
+
+
+
 
   return (
-    <div className="App">
+    <Container className="App">
+      <Row>
+        <Col xs={6}>
+          <h1 style={{ textAlign: "center", margin: "50px 0 50px 0 " }}>Logistics-Tracker</h1>
+          <Row style={{ marginBottom: "5px" }}>
+            <Button onClick={() => router.push('/factory')} variant="primary" size="lg">Manager Factory</Button>
+          </Row>
+          <Row style={{ marginBottom: "5px" }}>
+            <Button onClick={() => router.push('/deliver')} variant="primary" size="lg">Manager Deliver</Button>
+          </Row>
+          <Row style={{ marginBottom: "5px" }} >
+            <Button onClick={() => router.push('/consumer')} variant="primary" size="lg">Manager Consumer</Button>
+          </Row>
+        </Col>
+        <Col>
+          <Image alt="delivery" src={deliveryImage} />
+        </Col>
+      </Row>
+      <Row>
+      </Row>
 
-      <ul>
-        <li>
-          <Link href="/factory">
-            <a>Factory</a>
-          </Link>
-        </li>
-        <li>
-          <Link href="/deliver">
-            <a>Deliver</a>
-          </Link>
-        </li>
-        <li>
-          <Link href="/consumer">
-            <a>Consumer</a>
-          </Link>
-        </li>
-      </ul>
-      <Lectura
-        drizzle={drizzle}
-        drizzleState={state.drizzleState}
-      />
-    </div>
+    </Container>
   );
 }
 
