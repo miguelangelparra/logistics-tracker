@@ -25,7 +25,8 @@
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 //
 const fs = require('fs');
-const mnemonic = fs.readFileSync(".secret").toString().trim();
+//const mnemonic = fs.readFileSync(".secret").toString().trim();
+const mnemonic =  "vintage wait quality impose minimum can boss leave sort pulse win oven"
 const infura_link = "https://rinkeby.infura.io/v3/e7a1722fc3af486e8cbee298f52705df"
 const path = require("path");
 module.exports = {
@@ -53,11 +54,11 @@ module.exports = {
       port: 9545,            // Standard Ethereum port (default: none)
        network_id: "5777",       // Any network (default: none)
     }, */
-    /*    ganache: {
+       ganache: {
         host: "127.0.0.1",     // Localhost (default: none)
          port: 7545,            // Standard Ethereum port (default: none)
           network_id: "5777",       // Any network (default: none)
-       }, */
+       },
      
       rinkeby: {
         provider: () => new HDWalletProvider(mnemonic, infura_link),

@@ -18,7 +18,9 @@ const ManagerClient = ({ drizzle, drizzleState }) => {
 
 
   const handleCheckProduct = async (id) => {
-    await methods["getProduct"].cacheCall(id, { from: mainAccount, gas: "3000000" })
+    await methods["getProduct"].cacheCall(id,
+/*        { from: mainAccount, gas: "3000000" }
+ */       )
   }
 
   const handleGetProducts = async (e) => {

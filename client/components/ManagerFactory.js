@@ -26,20 +26,14 @@ const ManagerFactory = ({ drizzle, drizzleState }) => {
 
   const [price, setPrice] = useState(null)
 
-
-  const handleOwner = async (e) => {
-    await methods["getProduct"].cacheCall(idProductCheck, { from: mainAccount, gas: "3000000" })
-    await methods["getProducts"].cacheCall({ from: mainAccount, gas: "3000000" })
-    await methods["countProducts"].cacheCall({ from: mainAccount, gas: "3000000" })
-  }
-
   const handleCheckProduct = async (id) => {
     setIdProductCheck(id)
-    await methods["getProduct"].cacheCall(id, { from: mainAccount, gas: "3000000" })
+    await methods["getProduct"].cacheCall(id, 
+/*       { from: mainAccount, gas: "3000000" }
+ */      )
   }
 
   const handleGetProducts = async (e) => {
-    console.log("=======LOS GET==========*-*")
     await methods["getProducts"].cacheCall()
     await methods["countProducts"].cacheCall()
   }
@@ -47,8 +41,9 @@ const ManagerFactory = ({ drizzle, drizzleState }) => {
   const handleSetFactory = async () => {
     await methods["setFactory"].cacheSend(
       idProductCreate,
-      price, { from: mainAccount, gas: "3000000" }
-    );
+      price, 
+/*       { from: mainAccount, gas: "3000000" }
+ */    );
   }
 
   useEffect(() => {
