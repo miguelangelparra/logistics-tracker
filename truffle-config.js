@@ -29,7 +29,7 @@ const mnemonic = fs.readFileSync(".secret").toString().trim();
 const infura_link = "https://rinkeby.infura.io/v3/e7a1722fc3af486e8cbee298f52705df"
 const path = require("path");
 module.exports = {
-  contracts_build_directory: path.join(__dirname, "client/contracts"),
+  contracts_build_directory: path.join(__dirname, "client1/contracts"),
 
   /**
    * Networks define how you connect to your ethereum client and let you set the
